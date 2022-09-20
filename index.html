@@ -4,20 +4,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Task App</title>
   <script src="./index.js" defer></script>
-  <script src="./components/list.js" defer></script>
+
+  <script src="./components/TaskItem.js" defer></script>
+
   <script src="./actions/createTask.js" defer></script>
   <script src="./actions/deleteTask.js" defer></script>
+  <script src="./actions/updateTask.js" defer></script>
 </head>
 
 <body>
   <form id="todo">
-    <input type="text" name="input">
+    <label for="input">Escribe aquí tu tarea</label>
+    <input type="text" name="input" placeholder="">
     <button>+</button>
   </form>
 
   <div id="tasks-container" style="display: flex; flex-direction:column">
+    <p>Lista de tareas por hacer:</p>
+  </div>
+
+  <div id="tasks-completed" style="display: flex; flex-direction:column">
+    <p>Lista de tareas completadas:</p>
   </div>
 
 </body>

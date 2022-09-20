@@ -4,6 +4,8 @@ class TaskList extends HTMLElement {
   }
 
   connectedCallback () {
+    const shadowRoot = this.attachShadow({ mode: 'open' })
+
     const deleteTaskEvent = new Event('delete-task', {
       composed: false,
       bubbles: true
@@ -11,8 +13,23 @@ class TaskList extends HTMLElement {
       // cancelable, false
     })
 
+    const isCompleteEvent = new CustomEvent('complete-task', {
+      detail: {
+        id: this.getAttribute('db-id')
+      },
+      bubbles: true,
+      composed: true
+    })
+
     const $checkbox = document.createElement('input')
+    $checkbox.checked = true
     $checkbox.type = 'checkbox'
+    $checkbox.onclick = () => {
+      if ($checkbox.checked) {
+        this.dispatchEvent(isCompleteEvent)
+        console.log('asdasd')
+      }
+    }
     // $checkbox.checked = true
 
     const $p = document.createElement('p')
@@ -27,9 +44,9 @@ class TaskList extends HTMLElement {
       this.dispatchEvent(deleteTaskEvent)
     }
 
-    this.appendChild($checkbox)
-    this.appendChild($p)
-    this.appendChild($button)
+    shadowRoot.appendChild($checkbox)
+    shadowRoot.appendChild($p)
+    shadowRoot.appendChild($button)
 
     // this.innerHTML = `<div>${this.getAttribute('text')}</div>`
 
@@ -37,4 +54,4 @@ class TaskList extends HTMLElement {
   }
 }
 
-customElements.define('task-list', TaskList)
+customElements.define('task-item', TaskList)
